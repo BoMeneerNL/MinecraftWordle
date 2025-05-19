@@ -1,1 +1,18 @@
-const t=require("fs");const n=require("path");function e(t){const s="a".charCodeAt(0);const c="z".charCodeAt(0);const e=(2<<1)+1;return[...t.toLowerCase()].map(t=>{const n=t.charCodeAt(0);if(n>=s&&n<=c){const o=((n-s+e)%26+26)%26;return String.fromCharCode(s+o)}return t}).join("")}const o=n.join(__dirname,"input.json");const s=n.join(__dirname,"public","output.json");const c=JSON.parse(t.readFileSync(o,"utf8"));const r=c.sort(()=>Math.random()-.5);const u=new Date;const a=r.map((t,n)=>{const o=typeof t==="string"?t:t.t;const s=e(o);const c=new Date(u);c.setDate(u.getDate()+n);return{t:s,o:c.toISOString().split("T")[0]}});t.writeFileSync(s,JSON.stringify(a,null,2),"utf8");
+const fs = require('fs');
+const path = require('path');
+const inputFilePath = path.join(__dirname, 'input.json');
+const outputFilePath = path.join(__dirname, 'public', 'output.json');
+const inputData = JSON.parse(fs.readFileSync(inputFilePath, 'utf8'));
+const shuffledData = inputData.sort(() => Math.random() - 0.5);
+const startDate = new Date();
+
+const outputData = shuffledData.map((item, index) => {
+  const date = new Date(startDate);
+  date.setDate(startDate.getDate() + index);
+  return {
+    word: typeof item === 'string' ? item : item.word, // adjust if input is array of strings or objects
+    date: date.toISOString().split('T')[0]
+  };
+});
+
+fs.writeFileSync(outputFilePath, JSON.stringify(outputData, null, 2), 'utf8');
