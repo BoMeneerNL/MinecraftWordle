@@ -37,8 +37,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: build output.json
-        run: node init.cjs
       - name: Build
         
         run: npm run build
