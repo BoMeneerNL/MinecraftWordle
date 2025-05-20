@@ -10,7 +10,7 @@ const outputData = shuffledData.map((item, index) => {
   const date = new Date(startDate);
   date.setDate(startDate.getDate() + index);
   return {
-    word: typeof item === 'string' ? item : item.word, // adjust if input is array of strings or objects
+    word: (typeof item === 'string' ? item : item.word).toLowerCase(), // adjust if input is array of strings or objects
     date: date.toISOString().split('T')[0]
   };
 });
