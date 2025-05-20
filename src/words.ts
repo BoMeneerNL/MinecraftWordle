@@ -4,16 +4,18 @@ import output from '../public/output.json';
 
 type OutputItem = { date: string; word: string };
 
-export default function getTodayWord() {
+export  function getTodayWord() {
     //read public/output.json
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const date = `${year}-${month}-${day}`;
+    const date = new Date().toISOString().split('T')[0];
     //check if date is in output.json
     const dateInOutput = (output as OutputItem[]).find((item) => item.date === date);
-
+console.log(dateInOutput);
+console.log(date);
     // You can return the word or handle undefined if not found
     return dateInOutput?.word;
+}
+export function getAllWords() {
+    //read public/output.json
+    const allWords = (output as OutputItem[]).map((item) => item.word);
+    return allWords;
 }
